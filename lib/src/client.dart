@@ -92,7 +92,8 @@ dynamic decodeResponse(XmlDocument document, List<Codec> decodeCodecs) {
     final elt = getValueContent(valueElt);
     return decode(elt, decodeCodecs);
   } else {
-    late int faultCode;
+    late String faultCode; // Modificato tipo da Int a String della variabile
+    // per renderlo compatibile con le risposte di Odoo 7
     late String faultString;
     final members = responseElt
         .findElements('fault')
@@ -108,7 +109,12 @@ dynamic decodeResponse(XmlDocument document, List<Codec> decodeCodecs) {
       final elt = getValueContent(valueElt);
       final value = decode(elt, decodeCodecs);
       if (name == 'faultCode') {
-        faultCode = value as int;
+        if (value is int) {
+          faultCode = value.toString();
+        } else {
+          faultCode =
+              value as String; // Modificato tipo da Int a String, vedi sopra
+        }
       } else if (name == 'faultString') {
         faultString = value as String;
       }

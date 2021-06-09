@@ -170,7 +170,7 @@ class _FaultCodec implements Codec<Fault> {
     }
     final faultCode = struct['faultCode'];
     final faultString = struct['faultString'];
-    if (faultCode is! int || faultString is! String) {
+    if (faultCode is! String || faultString is! String) {
       throw StateError('$struct is not a properly encoded Fault');
     }
     return Fault(faultCode, faultString);

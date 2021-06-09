@@ -174,7 +174,7 @@ void main() {
     test('encode correctly', () {
       expect(
           faultCodec
-              .encode(Fault(1, 'This is a bad fault'),
+              .encode(Fault('1', 'This is a bad fault'),
                   (n) => encode(n, standardCodecs))
               .toXmlString(pretty: true),
           equals('''
@@ -211,7 +211,7 @@ void main() {
   </member>
 </struct>''').firstChild;
       expect(faultCodec.decode(elt, (n) => decode(n, standardCodecs)),
-          equals(Fault(1, 'c')));
+          equals(Fault('1', 'c')));
     });
 
     test('decode fault with empty string value', () {
@@ -229,7 +229,7 @@ void main() {
   </member>
 </struct>''').firstChild;
       expect(faultCodec.decode(elt, (n) => decode(n, standardCodecs)),
-          equals(Fault(1, '')));
+          equals(Fault('1', '')));
     });
 
     test('throws for <string>1</string>', () {

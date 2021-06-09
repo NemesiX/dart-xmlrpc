@@ -96,18 +96,18 @@ abstract class XmlRpcServer {
       await _sendResponse(httpResponse, response);
     } on XmlRpcRequestFormatException {
       await _sendResponse(httpResponse,
-          handler.handleFault(Fault(-32602, 'invalid method parameters')));
+          handler.handleFault(Fault('-32602', 'invalid method parameters')));
     } on XmlRpcMethodNotFoundException {
       await _sendResponse(httpResponse,
-          handler.handleFault(Fault(-32601, 'requested method not found')));
+          handler.handleFault(Fault('-32601', 'requested method not found')));
     } on XmlRpcCallException catch (e) {
       await _sendResponse(
           httpResponse,
           handler.handleFault(
-              Fault(-32603, 'internal xml-rpc error : ${e.cause}')));
+              Fault('-32603', 'internal xml-rpc error : ${e.cause}')));
     } on XmlRpcResponseEncodingException {
       await _sendResponse(httpResponse,
-          handler.handleFault(Fault(-32603, 'unsupported response')));
+          handler.handleFault(Fault('-32603', 'unsupported response')));
     } on Exception catch (e) {
       print('Exception $e');
       rethrow;
